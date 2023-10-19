@@ -42,13 +42,6 @@ def checkForMissingBackblasts(request):
 	slackWorkspacesInputs = slackWorkspacesInputs.split(";")
 	slackTokens = slackTokens.split(";")
 
-	mydb = mysql.connector.connect(
-		host= os.getenv("paxMinerSqlServer"),
-		user= os.getenv("paxMinerUsername"),
-		password= os.getenv("paxMinerPassword"),
-		database= os.getenv("paxMinerDatabase")
-	)
-
 	indexQ = 4
 	indexAO = 5
 	indexSiteQ = 6
@@ -61,11 +54,19 @@ def checkForMissingBackblasts(request):
 		notificationGracePeriodDays = inputs[3]
 		notificationCutoffDays = inputs[4]
 		channelTriggerDay = int(inputs[5]) # The day of the week AO and Site Q alerts go out. Monday is 0.
+		paxMinerDatabase = inputs[6]
 		slackToken = slackTokens[i]
 
 		print("Starting " + workspaceName)
 
 		client = WebClient(token=slackToken)
+
+		mydb = mysql.connector.connect(
+			host= os.getenv("paxMinerSqlServer"),
+			user= os.getenv("paxMinerUsername"),
+			password= os.getenv("paxMinerPassword"),
+			database= paxMinerDatabase
+		)
 
 		cursor = mydb.cursor()
 		cursor.execute("""
