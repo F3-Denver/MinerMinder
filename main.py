@@ -36,17 +36,17 @@ def GetBlockSection(message):
 
 def checkForMissingBackblasts(request):
 
-	slackWorkspacesInputs = "Denver,TCT7SH4JC,C04R36F5YGJ,1,75,2;Denver2,TCT7SH4JC,,1,75,3" #os.getenv("slackWorkspacesInputs")
-	slackTokens = "xoxb-435264582624-4829806996614-2HKBw7Zy0FdciIt02iLwtcWu;xoxb-435264582624-4829806996614-2HKBw7Zy0FdciIt02iLwtcWu" #os.getenv("slackToken")
+	slackWorkspacesInputs = os.getenv("slackWorkspacesInputs")
+	slackTokens = os.getenv("slackTokens")
 
 	slackWorkspacesInputs = slackWorkspacesInputs.split(";")
 	slackTokens = slackTokens.split(";")
 
 	mydb = mysql.connector.connect(
-		host="f3stlouis.cac36jsyb5ss.us-east-2.rds.amazonaws.com",#os.getenv("paxMinerSqlServer"),
-		user="paxminer", #os.getenv("paxMinerUsername"),
-		password="AyeF3read0nly!", #os.getenv("paxMinerPassword"),
-		database="f3denver" #os.getenv("paxMinerDatabase")
+		host= os.getenv("paxMinerSqlServer"),
+		user= os.getenv("paxMinerUsername"),
+		password= os.getenv("paxMinerPassword"),
+		database= os.getenv("paxMinerDatabase")
 	)
 
 	indexQ = 4
