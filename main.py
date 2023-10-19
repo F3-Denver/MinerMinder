@@ -42,22 +42,22 @@ def checkForMissingBackblasts(request):
 	slackWorkspacesInputs = slackWorkspacesInputs.split(";")
 	slackTokens = slackTokens.split(";")
 
+	# SQL Query Columns
 	indexQ = 4
 	indexAO = 5
 	indexSiteQ = 6
 
 	for i, slackWorkspaceInputs in enumerate(slackWorkspacesInputs):
 		inputs = slackWorkspaceInputs.split(",")
-		workspaceName = inputs[0]
+		paxMinerDatabase = inputs[0]
 		workspaceId = inputs[1]
 		logChannelId = inputs[2]
 		notificationGracePeriodDays = inputs[3]
 		notificationCutoffDays = inputs[4]
 		channelTriggerDay = int(inputs[5]) # The day of the week AO and Site Q alerts go out. Monday is 0.
-		paxMinerDatabase = inputs[6]
 		slackToken = slackTokens[i]
 
-		print("Starting " + workspaceName)
+		print("Starting " + paxMinerDatabase)
 
 		client = WebClient(token=slackToken)
 
