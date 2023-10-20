@@ -138,7 +138,7 @@ def checkForMissingBackblasts(request):
 			for missingBB in q:
 				message.append(GetBlockSection("A " + missingBB[3] + " at <#" + missingBB[indexAO] + "> on " + missingBB[0].strftime("%A") + " " + missingBB[0].strftime("%m/%d/%y") + " at " + missingBB[1]))
 
-			client.chat_postMessage(channel="C04R36F5YGJ", text="Missing Backblast!!! :grimacing:", blocks=message) # channel=qId
+			client.chat_postMessage(channel=qId, text="Missing Backblast!!! :grimacing:", blocks=message)
 
 		# The rest of the reminders are only weekly
 		if datetime.today().weekday() != channelTriggerDay:
@@ -163,7 +163,7 @@ def checkForMissingBackblasts(request):
 					messagePart = messagePart + (" (<@" + missingBB[indexQ] + "> was Q)")
 				message.append(GetBlockSection(messagePart))
 
-			client.chat_postMessage(channel="C04R36F5YGJ", text="Missing Backblasts at your AO! :warning:", blocks=message) # channel=siteQId
+			client.chat_postMessage(channel=siteQId, text="Missing Backblasts at your AO! :warning:", blocks=message)
 
 		# Channel Reminder
 		data.sort(key=itemgetter(indexAO))
@@ -183,7 +183,7 @@ def checkForMissingBackblasts(request):
 					messagePart = messagePart + (" (<@" + missingBB[indexQ] + "> was Q)")
 				message.append(GetBlockSection(messagePart))
 
-			client.chat_postMessage(channel="C04R36F5YGJ", text="Missing Backblasts at this AO! :exploding_head:", blocks=message) # channel=aoId
+			client.chat_postMessage(channel=aoId, text="Missing Backblasts at this AO! :exploding_head:", blocks=message)
 			
 	return 'OK'
 
