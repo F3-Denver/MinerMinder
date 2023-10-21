@@ -90,7 +90,7 @@ def checkForMissingBackblasts(request):
 					SELECT
 						*
 					FROM
-						f3denver.beatdowns bd
+						""" + paxMinerDatabase + """.beatdowns bd
 					WHERE
 						qm.ao_channel_id = bd.ao_id
 						AND qm.event_date = bd.bd_date )
@@ -105,7 +105,7 @@ def checkForMissingBackblasts(request):
 				SELECT
 					*
 				FROM
-					f3denver.aos) aos
+					""" + paxMinerDatabase + """.aos) aos
 			ON
 				qmbd.ao_channel_id = aos.channel_id
 			ORDER BY
