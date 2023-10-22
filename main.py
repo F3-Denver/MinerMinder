@@ -119,7 +119,7 @@ def checkForMissingBackblasts(request):
 		print("Missing backblasts found: "+ str(len(data)))
 		
 		if logChannelId != "" and not logChannelId.isspace():
-			client.chat_postMessage(channel=logChannelId, text="Miner Minder: There are " + str(len(data)) + " missing backblasts as of today (checked between " + str(notificationGracePeriodDays) + " and " + str(notificationCutoffDays) + " days ago).")
+			client.chat_postMessage(channel=logChannelId, text="There are " + str(len(data)) + " missing backblasts as of today (checked between " + str(notificationGracePeriodDays) + " and " + str(notificationCutoffDays) + " days ago).")
 		
 		if len(data) == 0:
 			continue
