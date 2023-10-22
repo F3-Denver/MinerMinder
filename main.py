@@ -35,6 +35,7 @@ def GetBlockSection(message):
 	}
 
 def checkForMissingBackblasts(request):
+	print("starting")
 
 	slackWorkspacesInputs = os.getenv("slackWorkspacesInputs")
 	slackTokens = os.getenv("slackTokens")
@@ -68,6 +69,7 @@ def checkForMissingBackblasts(request):
 			database= paxMinerDatabase
 		)
 
+		print("Executing query")
 		cursor = mydb.cursor()
 		cursor.execute("""
 			SELECT
@@ -131,7 +133,7 @@ def checkForMissingBackblasts(request):
 
 		for q in qs:
 			message = []
-			message.append(GetBlockHeader("MinerMinder Alert!"))
+			message.append(GetBlockHeader("Missing Backblasts!"))
 			message.append(GetBlockContext("It looks like you forgot to post the following backblast(s). :grimacing:"))
 			qId = q[0][indexQ]
 			
@@ -139,13 +141,15 @@ def checkForMissingBackblasts(request):
 				message.append(GetBlockSection("A " + missingBB[3] + " at <#" + missingBB[indexAO] + "> on " + missingBB[0].strftime("%A") + " " + missingBB[0].strftime("%m/%d/%y") + " at " + missingBB[1]))
 
 			client.chat_postMessage(channel=qId, text="Missing Backblast!!! :grimacing:", blocks=message)
+			print("Messaged Q "+ qId)
 
 		# The rest of the reminders are only weekly
 		if datetime.today().weekday() != channelTriggerDay:
+			print("Not site notification day")
 			continue
 
 		# Site Q Reminder
-		dataSorted = [item for item in data if item[indexSiteQ] is not None]
+		dataSorted = [item for item in data if item[indexSiteQ] is not None and item[indexSiteQ] != '']
 		dataSorted.sort(key=itemgetter(indexSiteQ))
 		siteQs = []
 		for k,g in groupby(dataSorted, itemgetter(indexSiteQ)):
@@ -153,7 +157,7 @@ def checkForMissingBackblasts(request):
 
 		for siteQ in siteQs:
 			message = []
-			message.append(GetBlockHeader("MinerMinder Alert!"))
+			message.append(GetBlockHeader("Missing Backblasts!"))
 			message.append(GetBlockContext("It looks like there are backblasts missing at the site(s) you lead. :warning:"))
 			siteQId = siteQ[0][indexSiteQ]
 			
@@ -164,6 +168,7 @@ def checkForMissingBackblasts(request):
 				message.append(GetBlockSection(messagePart))
 
 			client.chat_postMessage(channel=siteQId, text="Missing Backblasts at your AO! :warning:", blocks=message)
+			print("Messaged Site Q " + siteQId)
 
 		# Channel Reminder
 		data.sort(key=itemgetter(indexAO))
@@ -173,7 +178,7 @@ def checkForMissingBackblasts(request):
 
 		for ao in aos:
 			message = []
-			message.append(GetBlockHeader("MinerMinder Alert!"))
+			message.append(GetBlockHeader("Missing Backblasts!"))
 			message.append(GetBlockContext("It looks like there are backblasts missing at this AO. :exploding_head:"))
 			aoId = ao[0][indexAO]
 			
@@ -184,7 +189,6 @@ def checkForMissingBackblasts(request):
 				message.append(GetBlockSection(messagePart))
 
 			client.chat_postMessage(channel=aoId, text="Missing Backblasts at this AO! :exploding_head:", blocks=message)
+			print("Messaged AO " + aoId)
 			
 	return 'OK'
-
-checkForMissingBackblasts("")
