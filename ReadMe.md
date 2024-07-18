@@ -1,6 +1,9 @@
 # Miner Minder
 A not so gentle reminder to help remind people to submit their backblasts.
 
+## Prerequisites
+You must already have PAXminer, Weaslebot, and QSignups installed for this to work.
+
 ## Process
 The app will take a list of Slack Workspaces and iterate through them. It will query PAXminer and QSignups during a specified time period and check to see if any backblasts are missing. The app will group by Q (if available from QSignups) and send a message detailing which backblasts are missing in a direct message. Then it will check the day of the week. If the current day of the week is the one configured for that workspace, it will group missing backblasts by SiteQ if available from the PAXminer `aos` table and send an alert detailing the missing backblasts to the Site Q in a direct message. It will then group missing backblasts by AO and message the AO channel detailing which ones are missing.
 
