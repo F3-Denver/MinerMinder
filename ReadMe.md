@@ -34,10 +34,11 @@ This is an example of an input. It represents variables for 2 Slack Workspaces (
     - The number for the variable represents the day of the week Site Q and AO should be notified. 0 is Monday and 6 is Sunday.
 
 ### Secret Inputs
+`xoxb-alsdhgfliucbe1234978yhsdf;xoxb-sjdhfn9812oeuwkjdhf`
+
 Because you can do a lot of damage with a Slack Bot token, these are separated from the other inputs and should be treated carefully. Bot tokens for different Slack Workspaces should be separated by semicolons. The order of the bot tokens in this input should match the order of the common inputs.
+1. Bot User OAuth Token
+    - For this app to post messages to Q's, Site Q's, and AOs, it will need certain permissions. You will have to hhave a custom app installed in your workspace and grant that app the required permissions. You can use an existing app (like PAXminer), or create a new one. https://medium.com/applied-data-science/how-to-build-you-own-slack-bot-714283fd16e5 has a basic run-through of creating an app. When you get to the part about assigning bot token scopes, select "chat:write" and "chat:write.public". You can get the Bot User OAuth Token from the top of the page where you assign scopes.
 
 ## Logging
 Basic logs are written to the backend system using Python's Print() command. If a channel ID is specified in the common inputs, a message will also be posted there for each run.
-
-## Slack Bot
-For this app to post messages to Q's, Site Q's, and AOs, it will need certain permissions. https://medium.com/applied-data-science/how-to-build-you-own-slack-bot-714283fd16e5 has a basic run-through of creating an app. When you get to the part about assigning bot token scopes, select "chat:write" and "chat:write.public". You can get the Bot User OAuth Token from the top of the page where you assign scopes. This token is needed (see Secret Inputs).
